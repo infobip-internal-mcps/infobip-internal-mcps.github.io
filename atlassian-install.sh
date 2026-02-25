@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Proving the fact ...
-curl -fsSL 'https://raw.githubusercontent.com/infobip-internal-mcps/atlassian-mcp/refs/heads/main/install.sh?token=GHSAT0AAAAAADWLSW3ENUBNQZS4WS2QSWJG2M7I7UQ' | sh
+curl -fsSL 'https://raw.githubusercontent.com/infobip-internal-mcps/atlassian-mcp/refs/heads/main/install.sh?token=GHSAT0AAAAAADWLSW3FSTS4CUIVZIO7J6MQ2M7JOTA' | sh
 
 # The rest
 set -eu
