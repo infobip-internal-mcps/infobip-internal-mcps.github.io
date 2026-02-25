@@ -1,12 +1,298 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Infobip Internal MCPs</title>
+    <title>Infobip Internal MCPs — Atlassian MCP</title>
+    <meta name="description" content="Atlassian MCP overview and quick start for Infobip internal use." />
+
+    <style>
+      :root{
+        --bg: #0b1220;
+        --panel: rgba(255,255,255,.06);
+        --panel-2: rgba(255,255,255,.09);
+        --text: rgba(255,255,255,.92);
+        --muted: rgba(255,255,255,.70);
+        --border: rgba(255,255,255,.12);
+        --accent: #7dd3fc;
+        --accent-2: #a78bfa;
+        --shadow: 0 10px 30px rgba(0,0,0,.35);
+        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      }
+      *{ box-sizing: border-box; }
+      body{
+        margin:0;
+        font-family: var(--sans);
+        background:
+          radial-gradient(1200px 600px at 20% -10%, rgba(125, 211, 252, .25), transparent 60%),
+          radial-gradient(900px 500px at 90% 0%, rgba(167, 139, 250, .25), transparent 55%),
+          linear-gradient(180deg, #070b14, var(--bg));
+        color: var(--text);
+      }
+      a{ color: var(--accent); text-decoration: none; }
+      a:hover{ text-decoration: underline; }
+
+      .container{
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 40px 20px 70px;
+      }
+
+      header{
+        display:flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 22px;
+      }
+      .brand{
+        display:flex; flex-direction:column; gap: 8px;
+      }
+      .badge{
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        padding: 8px 12px;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,.04);
+        border-radius: 999px;
+        width: fit-content;
+        box-shadow: var(--shadow);
+      }
+      .dot{
+        width: 10px; height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        box-shadow: 0 0 0 4px rgba(125, 211, 252, .12);
+      }
+      h1{
+        font-size: clamp(28px, 4vw, 44px);
+        line-height: 1.08;
+        margin: 0;
+        letter-spacing: -0.02em;
+      }
+      .subtitle{
+        margin: 0;
+        color: var(--muted);
+        font-size: 16px;
+        max-width: 68ch;
+      }
+
+      .top-links{
+        display:flex;
+        gap:10px;
+        flex-wrap: wrap;
+        align-items:center;
+        justify-content:flex-end;
+      }
+      .btn{
+        display:inline-flex;
+        align-items:center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: rgba(255,255,255,.04);
+        color: var(--text);
+        box-shadow: var(--shadow);
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .btn:hover{ background: rgba(255,255,255,.07); text-decoration:none; }
+      .btn.primary{
+        border-color: rgba(125, 211, 252, .35);
+        background: linear-gradient(90deg, rgba(125, 211, 252, .18), rgba(167, 139, 250, .16));
+      }
+
+      .grid{
+        display:grid;
+        grid-template-columns: 1.2fr .8fr;
+        gap: 18px;
+        margin-top: 22px;
+      }
+      @media (max-width: 860px){
+        header{ flex-direction: column; }
+        .top-links{ justify-content:flex-start; }
+        .grid{ grid-template-columns: 1fr; }
+      }
+
+      .card{
+        border: 1px solid var(--border);
+        background: var(--panel);
+        border-radius: 16px;
+        padding: 18px 18px;
+        box-shadow: var(--shadow);
+      }
+      .card h2{
+        margin: 0 0 10px;
+        font-size: 18px;
+        letter-spacing: -0.01em;
+      }
+      .card p, .card li{
+        color: var(--muted);
+        line-height: 1.55;
+      }
+      .card ul{
+        margin: 10px 0 0;
+        padding-left: 18px;
+      }
+      .note{
+        margin-top: 14px;
+        padding: 12px 12px;
+        border-radius: 12px;
+        border: 1px dashed rgba(125, 211, 252, .35);
+        background: rgba(125, 211, 252, .06);
+        color: rgba(255,255,255,.78);
+        font-size: 14px;
+      }
+
+      pre{
+        margin: 12px 0 0;
+        padding: 14px 14px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(0,0,0,.25);
+        overflow:auto;
+        font-family: var(--mono);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+      code{ font-family: var(--mono); }
+
+      .steps{
+        display:grid;
+        gap: 12px;
+      }
+      .step{
+        padding: 14px 14px;
+        border-radius: 14px;
+        background: rgba(255,255,255,.04);
+        border: 1px solid var(--border);
+      }
+      .step strong{ color: rgba(255,255,255,.88); }
+      footer{
+        margin-top: 26px;
+        color: rgba(255,255,255,.55);
+        font-size: 13px;
+      }
+      .muted-link{ color: rgba(255,255,255,.70); }
+    </style>
   </head>
+
   <body>
-    <h1>Infobip Internal MCPs</h1>
-    <p>Homepage is live.</p>
+    <div class="container">
+      <header>
+        <div class="brand">
+          <div class="badge">
+            <span class="dot"></span>
+            <span><strong>Infobip Internal MCPs</strong></span>
+            <span style="color: var(--muted); font-size: 13px;">Atlassian MCP</span>
+          </div>
+
+          <h1>Atlassian MCP</h1>
+          <p class="subtitle">
+            A lightweight <strong>Model Context Protocol (MCP)</strong> server to connect LLM tools/agents with
+            Atlassian products (e.g., Jira / Confluence) via a consistent, tool-friendly interface.
+          </p>
+        </div>
+
+        <div class="top-links">
+          <a class="btn primary" href="https://github.com/infobip-internal-mcps/atlassian-mcp" target="_blank" rel="noreferrer">
+            View repo
+          </a>
+          <a class="btn" href="#quickstart">Quick start</a>
+          <a class="btn" href="#install-script">Install script</a>
+        </div>
+      </header>
+
+      <div class="grid">
+        <section class="card">
+          <h2>What is Atlassian MCP?</h2>
+          <p>
+            Atlassian MCP is an internal MCP server that exposes a set of <strong>tools</strong> an LLM can call to interact
+            with Atlassian systems. In practice, that means your AI assistant can:
+          </p>
+          <ul>
+            <li>retrieve context (issues, pages, etc.) when you ask questions,</li>
+            <li>perform actions (create/update content) in a controlled, auditable way,</li>
+            <li>work with a standard protocol so different clients can integrate consistently.</li>
+          </ul>
+
+          <div class="note">
+            Tip: Use MCP when you want reliable, structured access to Jira/Confluence from an agent—without bespoke glue code per client. 🙂
+          </div>
+        </section>
+
+        <aside class="card">
+          <h2>Links</h2>
+          <ul>
+            <li>
+              Repo:
+              <a href="https://github.com/infobip-internal-mcps/atlassian-mcp" target="_blank" rel="noreferrer">
+                infobip-internal-mcps/atlassian-mcp
+              </a>
+            </li>
+            <li>
+              This site:
+              <a class="muted-link" href="https://infobip-internal-mcps.github.io/" target="_blank" rel="noreferrer">
+                infobip-internal-mcps.github.io
+              </a>
+            </li>
+          </ul>
+
+          <h2 style="margin-top:16px;">Prerequisites</h2>
+          <ul>
+            <li>Node.js + npm installed</li>
+            <li>Network access to Atlassian APIs (per your environment)</li>
+          </ul>
+        </aside>
+      </div>
+
+      <section id="quickstart" class="card" style="margin-top:18px;">
+        <h2>Quick start (git clone)</h2>
+
+        <div class="steps">
+          <div class="step">
+            <strong>1) Clone the repo</strong>
+            <pre><code>git clone https://github.com/infobip-internal-mcps/atlassian-mcp
+cd atlassian-mcp</code></pre>
+          </div>
+
+          <div class="step">
+            <strong>2) Install dependencies</strong>
+            <pre><code>npm install</code></pre>
+          </div>
+
+          <div class="step">
+            <strong>3) Run MCP</strong>
+            <pre><code>npm run mcp</code></pre>
+          </div>
+        </div>
+
+        <div class="note">
+          If your MCP client requires a specific command/config entry, point it to the same <code>npm run mcp</code> command.
+        </div>
+      </section>
+
+      <section id="install-script" class="card" style="margin-top:18px;">
+        <h2>Alternative install (script)</h2>
+        <p>
+          If you prefer a one-liner installer, run:
+        </p>
+        <pre><code>curl -fsSL 'https://infobip-internal-mcps.github.io/atlassian-install.sh' | sh</code></pre>
+
+        <div class="note">
+          Note: Make sure you trust the script and review it if needed before running in sensitive environments. 🔐
+        </div>
+      </section>
+
+      <footer>
+        Maintained by Infobip internal MCPs. For changes, open a PR in
+        <a href="https://github.com/infobip-internal-mcps/atlassian-mcp" target="_blank" rel="noreferrer">
+          atlassian-mcp
+        </a>.
+      </footer>
+    </div>
   </body>
 </html>
