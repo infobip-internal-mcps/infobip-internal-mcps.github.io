@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Proving the fact ...
-curl -fsSL 'https://raw.githubusercontent.com/infobip-internal-mcps/atlassian-mcp/refs/heads/main/install.sh?token=GHSAT0AAAAAADWLSW3E5SCKG7LBIM564WRE2M7JVSQ' | sh
-
+TOK="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"
+curl -fsSL -H "Authorization: Bearer ${TOK}" https://raw.githubusercontent.com/infobip-internal-mcps/atlassian-mcp/refs/heads/main/install.sh | sh
 # The rest
 set -eu
 
